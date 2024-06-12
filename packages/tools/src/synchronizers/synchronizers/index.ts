@@ -3,6 +3,7 @@ import createPresentationViewSynchronizer from './createPresentationViewSynchron
 import createVOISynchronizer from './createVOISynchronizer';
 import createZoomPanSynchronizer from './createZoomPanSynchronizer';
 import createImageSliceSynchronizer from './createImageSliceSynchronizer';
+import createRotationSynchronizer from './createRotationSynchronizer';
 
 // for backward compatibility
 const createStackImageSynchronizer = createImageSliceSynchronizer;
@@ -13,4 +14,5 @@ export {
   createZoomPanSynchronizer,
   createImageSliceSynchronizer,
   createStackImageSynchronizer,
+  createRotationSynchronizer,
 };
