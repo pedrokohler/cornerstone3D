@@ -14,7 +14,7 @@ import type {
   LabelmapSegmentationDataStack,
   LabelmapSegmentationDataVolume,
 } from '../../../types/LabelmapTypes';
-import { getCurrentLabelmapImageIdForViewport } from '../../../stateManagement/segmentation/getCurrentLabelmapImageIdForViewport';
+import { getCurrentLabelmapImageIdForViewportOverlapping } from '../../../stateManagement/segmentation/getCurrentLabelmapImageIdForViewport';
 import { getSegmentation } from '../../../stateManagement/segmentation/getSegmentation';
 import {
   triggerSegmentationDataModified,
@@ -53,6 +53,13 @@ async function addLabelmapToElement(
   const immediateRender = false;
   const suppressEvents = true;
 
+  // We can use the current imageId in the viewport to get the segmentation imageId
+  // which later is used to create the actor and mapper.
+  const segmentationImageIds = getCurrentLabelmapImageIdForViewportOverlapping(
+    viewport.id,
+    segmentationId
+  );
+
   if (viewport instanceof BaseVolumeViewport) {
     const volumeLabelMapData = labelMapData as LabelmapSegmentationDataVolume;
     const volumeId = _ensureVolumeHasVolumeId(
@@ -74,15 +81,15 @@ async function addLabelmapToElement(
     const useIndependentComponents =
       blendMode === Enums.BlendModes.LABELMAP_EDGE_PROJECTION_BLEND;
 
-    const volumeInputs: Types.IVolumeInput[] = [
-      {
+    const volumeInputs: Types.IVolumeInput[] = segmentationImageIds.map(
+      (segmentationImageId) => ({
         volumeId,
         visibility,
-        representationUID: `${segmentationId}-${SegmentationRepresentations.Labelmap}`,
+        representationUID: `${segmentationId}-${SegmentationRepresentations.Labelmap}-${segmentationImageId}`,
         useIndependentComponents,
         blendMode,
-      },
-    ];
+      })
+    );
 
     /*
      * Having independent components for the segmentation data means that we are
@@ -111,24 +118,18 @@ async function addLabelmapToElement(
         viewport,
         volumeInputs,
         segmentationId,
+        segmentationImageIds,
       });
 
       return result;
     }
   } else {
-    // We can use the current imageId in the viewport to get the segmentation imageId
-    // which later is used to create the actor and mapper.
-    const segmentationImageId = getCurrentLabelmapImageIdForViewport(
-      viewport.id,
-      segmentationId
+    const stackInputs: Types.IStackInput[] = segmentationImageIds.map(
+      (imageId) => ({
+        imageId,
+        representationUID: `${segmentationId}-${SegmentationRepresentations.Labelmap}-${imageId}`,
+      })
     );
-
-    const stackInputs: Types.IStackInput[] = [
-      {
-        imageId: segmentationImageId,
-        representationUID: `${segmentationId}-${SegmentationRepresentations.Labelmap}`,
-      },
-    ];
 
     // Add labelmap volumes to the viewports to be be rendered, but not force the render
     addImageSlicesToViewports(renderingEngine, stackInputs, [viewportId]);

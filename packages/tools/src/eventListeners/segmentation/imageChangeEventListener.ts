@@ -16,7 +16,7 @@ import {
   getCurrentLabelmapImageIdForViewportOverlapping,
 } from '../../stateManagement/segmentation/getCurrentLabelmapImageIdForViewport';
 import { SegmentationRepresentations } from '../../enums';
-import { getLabelmapActorEntry } from '../../stateManagement/segmentation/helpers/getSegmentationActor';
+import { getLabelmapActorEntries } from '../../stateManagement/segmentation/helpers/getSegmentationActor';
 import { getSegmentationRepresentations } from '../../stateManagement/segmentation/getSegmentationRepresentation';
 
 const enable = function (element: HTMLDivElement): void {
@@ -100,8 +100,8 @@ function _imageChangeEventListener(evt) {
   });
 
   const labelmapActors = labelmapRepresentations
-    .map((representation) => {
-      return getLabelmapActorEntry(viewportId, representation.segmentationId);
+    .flatMap((representation) => {
+      return getLabelmapActorEntries(viewportId, representation.segmentationId);
     })
     .filter((actor) => actor !== undefined);
 
@@ -142,13 +142,7 @@ function _imageChangeEventListener(evt) {
       return;
     }
 
-    // const derivedImageId = derivedImageIds[0];
-
     derivedImageIds.forEach((derivedImageId) => {
-      console.log(
-        '🚀 ~ derivedImageIds.forEach ~ derivedImageId:',
-        derivedImageId
-      );
       const derivedImage = cache.getImage(derivedImageId);
 
       if (!derivedImage) {
@@ -163,32 +157,17 @@ function _imageChangeEventListener(evt) {
       const segmentationActorInput = actors.find(
         (actor) => actor.referencedId === derivedImageId
       );
-      console.log(
-        '🚀 ~ derivedImageIds.forEach ~ segmentationActorInput:',
-        segmentationActorInput
-      );
 
       if (!segmentationActorInput) {
         // i guess we need to create here
         const { dimensions, spacing, direction } =
           viewport.getImageDataMetadata(derivedImage);
-        console.log(
-          '🚀 ~ derivedImageIds.forEach ~ dimensions, spacing, direction:',
-          dimensions,
-          spacing,
-          direction
-        );
 
         const currentImage =
           cache.getImage(currentImageId) ||
           ({
             imageId: currentImageId,
           } as Types.IImage);
-
-        console.log(
-          '🚀 ~ derivedImageIds.forEach ~ currentImage:',
-          currentImage
-        );
 
         const { origin: currentOrigin } =
           viewport.getImageDataMetadata(currentImage);
@@ -243,10 +222,6 @@ function _imageChangeEventListener(evt) {
         const segmentationImageData = segmentationActorInput.actor
           .getMapper()
           .getInputData();
-        console.log(
-          '🚀 ~ derivedImageIds.forEach ~ segmentationImageData:',
-          segmentationImageData
-        );
 
         if (segmentationImageData.setDerivedImage) {
           // Update the derived image data, whether vtk or other as appropriate
