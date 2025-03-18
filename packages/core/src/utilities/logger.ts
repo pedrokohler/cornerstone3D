@@ -9,7 +9,9 @@ type WindowLog = {
   log: unknown;
 };
 
-(window as unknown as WindowLog).log = loglevel;
+if (typeof window !== 'undefined') {
+  (window as unknown as WindowLog).log = loglevel;
+}
 
 export type Logger = LogLevelLogger & {
   getLogger: (...categories: string[]) => Logger;

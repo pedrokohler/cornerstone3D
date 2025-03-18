@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/cornerstonejs/cornerstone3D/compare/v3.6.1...v3.7.0) (2025-03-18)
+
+**Note:** Version bump only for package @cornerstonejs/core
+
+## [3.6.1](https://github.com/cornerstonejs/cornerstone3D/compare/v3.6.0...v3.6.1) (2025-03-17)
+
+### Bug Fixes
+
+- **segment stats:** ijk and lps record keepings ([#1908](https://github.com/cornerstonejs/cornerstone3D/issues/1908)) ([19fbbc6](https://github.com/cornerstonejs/cornerstone3D/commit/19fbbc62e7206e2587d2db8b7bc173527ba86b33))
+
+# [3.6.0](https://github.com/cornerstonejs/cornerstone3D/compare/v3.5.3...v3.6.0) (2025-03-17)
+
+### Features
+
+- **segmentation:** Introduce getSegmentLargestBidirectional API, Refactor Metadata Handling, and Update ComputeWorker Configuration ([#1898](https://github.com/cornerstonejs/cornerstone3D/issues/1898)) ([f370f5a](https://github.com/cornerstonejs/cornerstone3D/commit/f370f5aabdb29afcd5e6e6b4bd563f0513b91068))
+
+## [3.5.3](https://github.com/cornerstonejs/cornerstone3D/compare/v3.5.2...v3.5.3) (2025-03-17)
+
+**Note:** Version bump only for package @cornerstonejs/core
+
+## [3.5.2](https://github.com/cornerstonejs/cornerstone3D/compare/v3.5.1...v3.5.2) (2025-03-17)
+
+### Bug Fixes
+
+- switch from getVTKDisplayCoords to getVtkDisplayCoords ([#1903](https://github.com/cornerstonejs/cornerstone3D/issues/1903)) ([1b9fdae](https://github.com/cornerstonejs/cornerstone3D/commit/1b9fdae9119c5a969a392e4ba3245e35c237122b))
+
+## [3.5.1](https://github.com/cornerstonejs/cornerstone3D/compare/v3.5.0...v3.5.1) (2025-03-17)
+
+### Bug Fixes
+
+- **volume-viewport:** call render for the scroll to take effect ([#1899](https://github.com/cornerstonejs/cornerstone3D/issues/1899)) ([3cf052c](https://github.com/cornerstonejs/cornerstone3D/commit/3cf052c672df4e364a4234e1182b147a26e4056d))
+
+# [3.5.0](https://github.com/cornerstonejs/cornerstone3D/compare/v3.4.0...v3.5.0) (2025-03-17)
+
+### Features
+
+- upgrade vtk js ([#1905](https://github.com/cornerstonejs/cornerstone3D/issues/1905)) ([9090e31](https://github.com/cornerstonejs/cornerstone3D/commit/9090e31e78b3fccdda0c241181102ee8ca6baf58))
+
+# [3.4.0](https://github.com/cornerstonejs/cornerstone3D/compare/v3.3.4...v3.4.0) (2025-03-13)
+
+### Features
+
+- **adapters:** overlapping segs with labelmap images ([#1815](https://github.com/cornerstonejs/cornerstone3D/issues/1815)) ([95972e2](https://github.com/cornerstonejs/cornerstone3D/commit/95972e205c722c72f37f951aec0ab6bb25ef0773))
+
+## [3.3.4](https://github.com/cornerstonejs/cornerstone3D/compare/v3.3.3...v3.3.4) (2025-03-13)
+
+### Bug Fixes
+
+- undefined window error ([#1897](https://github.com/cornerstonejs/cornerstone3D/issues/1897)) ([a142cdd](https://github.com/cornerstonejs/cornerstone3D/commit/a142cdd1866317fb64f91c2ff050b1e70f2451df))
+
 ## [3.3.3](https://github.com/cornerstonejs/cornerstone3D/compare/v3.3.2...v3.3.3) (2025-03-11)
 
 **Note:** Version bump only for package @cornerstonejs/core
